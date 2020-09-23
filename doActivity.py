@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from models.Biliapi import BiliWebApi
 import time, json
 

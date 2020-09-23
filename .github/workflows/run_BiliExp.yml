@@ -1,0 +1,41 @@
+name: 'run BiliExp'
+
+on:
+  schedule:
+    - cron: '1 4 * * *' #中午12:01执行，时间与其他脚本有依赖关系如无必要请勿修改
+  watch:
+    types: started
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        ref: BiliExp-Actions
+
+    - name: 安装python-requests
+      run: sudo apt-get update && sudo apt-get install -y python-requests
+
+    - name: 配置用户信息并检查有效性
+      run: echo '${{ secrets.biliconfig }}' > ./config/config.json && python3 check.py
+      
+    - name: 执行B站经验脚本BiliExp.py
+      run: python3 BiliExp.py && cat exp.log
+
+    - name: 执行B站漫画辅助脚本mangaTask.py
+      run: python3 mangaTask.py && cat manga.log
+    
+    - name: 执行B站活动脚本doActivity.py
+      run: python3 doActivity.py
+    
+    - name: 银瓜子兑换硬币silver2coin.py
+      run: python3 silver2coin.py && cat silver2coin.log
+    
+    - name: 执行B站互动抽奖BiliLottery.py(费时)
+      run: python3 BiliLottery.py
+    
+    - name: 执行B站动态清理cleanDynamic.py(费时)
+      run: python3 cleanDynamic.py
