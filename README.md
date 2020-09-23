@@ -49,7 +49,7 @@ BiliExp
         *  2.1.2 name为"ACCESS_KEY_ID"        value为阿里云账户AccessKeyID(需要主账户，子账户可能没权限)
         *  2.1.3 name为"ACCESS_KEY_SECRET"    value为阿里云账户accessKeySecret
         *  2.1.4 name为"biliconfig"           value为B站账号登录信息，格式参照config/config.json文件
-    *  2.2添加完上面4个"Secrets"后，进入"Actions" --》"deploy for aliyun"，点击右边的"Run workflow"即可部署至阿里云函数
+    *  2.2添加完上面4个"Secrets"后，进入"Actions" --》"deploy for aliyun"，点击右边的"Run workflow"即可部署至阿里云函数(如果出错请在红叉右边点击"deploy for aliyun"查看部署任务的输出信息找出错误原因)
         *  2.2.1 首次fork可能要去actions里面同意使用actions条款，如果"Actions"里面没有"deploy for aliyun"，点一下右上角的"star"，"deploy for aliyun"就会出现在"Actions"里面
 ```
     注:账号cookie检查每天0:10执行1次(填写SCKEY后账号登录状态失效会微信通知)；投币、点赞、分享视频，直播签到，送出直播即将过期礼物每天0:20执行1次；参与B站官方抽奖活动每天0:30执行1次；漫画app签到，花费即将过期漫读劵和积分兑换福利券功能每天12:00执行1次；将银瓜子兑换为硬币每天3:00执行1次；B站转发互动抽奖和发送直播在线心跳维持在线状态每隔10分钟运行1次；清理B站无效动态每周一执行1次。
@@ -57,6 +57,12 @@ BiliExp
     自动兑换漫画积分为福利券功能默认关闭，mangaTask.py中手动指定兑换数量。
     最后注意不要在github上直接在config/config.json中填写账号信息，而是在Secrets中填写，避免账号信息泄露。
 ```
+</br></br>
+
+### 2020/09/22更新
+
+* 1.更新Actions，部署前执行账号检查，应对有的人账号配置错误部署后脚本执行失败且找不出原因的情况。
+
 </br></br>
 
 ### 2020/09/22更新
