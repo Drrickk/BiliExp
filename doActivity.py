@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from models.Biliapi import BiliWebApi
-import time
+import time, json
 
 def get_activity_lottery():
     '''获取B站活动抽奖id，生成器'''
