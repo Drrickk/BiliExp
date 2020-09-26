@@ -33,10 +33,11 @@ def filterC(biliapi, card, timestamp):
         return False
     if 'origin' in card:
         origin = json.loads(card["origin"])
-        text = origin["item"]["description"]
-        for x in keywords:
-            if x in text:
-                return True
+        if 'item' in origin and 'description' in origin["item"]:
+            text = origin["item"]["description"]
+            for x in keywords:
+                if x in text:
+                    return True
     return False
 
 def filterD(biliapi, card, timestamp):
