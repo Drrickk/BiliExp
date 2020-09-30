@@ -12,6 +12,12 @@ keywords = ("#抽奖#","#互动抽奖#") #包含此关键字且在2个月前的�
 nowTime = int(time.time())
 endTime = nowTime if endTime == 0 else endTime
 
+def hiddenUname(uname: str):
+    '''替换用户名中一部分为星号'''
+    _xlen = len(uname) // 2
+    _s = (_xlen + 1) // 2
+    return f'{uname[0:_s]}{"*"*_xlen}{uname[_s+_xlen:]}'
+
 def filterB(biliapi, card, timestamp):
     "判断是否是抽奖过期动态"
     if 'origin_extension' in card and 'lott' in card["origin_extension"]:
@@ -54,7 +60,7 @@ def filter(filters, *args):
 
 def cleanDynamic(cookieData, filters):
     biliapi = BiliWebApi(cookieData)
-    print(f'开始为用户({biliapi.getUserName()}) 清理动态')
+    print(f'开始为用户({hiddenUname(biliapi.getUserName())}) 清理动态')
     datas = biliapi.getMyDynamic()
     for x in datas:
         timestamp = x["desc"]["timestamp"]

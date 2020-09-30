@@ -2,6 +2,12 @@
 from models.Biliapi import BiliWebApi
 import json, time
 
+def hiddenUname(uname: str):
+    '''替换用户名中一部分为星号'''
+    _xlen = len(uname) // 2
+    _s = (_xlen + 1) // 2
+    return f'{uname[0:_s]}{"*"*_xlen}{uname[_s+_xlen:]}'
+
 def bili_lottery(data, stime, etime):
     "抽取从stime到etime之间的抽奖，stime<etime"
     try:
@@ -10,7 +16,7 @@ def bili_lottery(data, stime, etime):
         print(f'登录验证id为{data["DedeUserID"]}的账户失败，原因为{str(e)}，跳过后续所有操作')
         return
 
-    print(f'登录账户 ({biliapi.getUserName()}) 成功，开始转发抽奖动态')
+    print(f'登录账户 ({hiddenUname(biliapi.getUserName())}) 成功，开始转发抽奖动态')
 
     datas = biliapi.getDynamic()
     already_repost_dyid = [] #记录动态列表中自己已经转发的动态id

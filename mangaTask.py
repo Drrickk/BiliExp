@@ -16,6 +16,12 @@ inner_config = {
 #上述的章数与实际章数可能不一样，番外也算一话，如果要购买30章，但是前面有一章番外，那么章数请填写31
 
 
+def hiddenUname(uname: str):
+    '''替换用户名中一部分为星号'''
+    _xlen = len(uname) // 2
+    _s = (_xlen + 1) // 2
+    return f'{uname[0:_s]}{"*"*_xlen}{uname[_s+_xlen:]}'
+
 def get_need_buy_eplist(filter: 'str 需要购买的话数', all_ep_list):
     '''通过所有eplist和过滤条件获得需要购买的漫画ep_id列表'''
     L1 = filter.split(',')
@@ -93,7 +99,7 @@ def manga_task(cookie, filter=''):
         logging.error(f'登录验证id为{data["DedeUserID"]}的账户失败，原因为:{str(e)}，跳过漫画兑换')
         return
     
-    logging.info(f'登录账户 {biliapi.getUserName()} 成功')
+    logging.info(f'登录账户 {hiddenUname(biliapi.getUserName())} 成功')
 
     if inner_config["exchangeCoupons"] > 0:
         try:

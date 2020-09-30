@@ -4,6 +4,12 @@ from models.PushMessage import PushMessage
 import json, time
 import logging
 
+def hiddenUname(uname: str):
+    '''替换用户名中一部分为星号'''
+    _xlen = len(uname) // 2
+    _s = (_xlen + 1) // 2
+    return f'{uname[0:_s]}{"*"*_xlen}{uname[_s+_xlen:]}'
+
 def bili_exp(cookieData, pm):
    "B站直播签到，投币分享获取经验，模拟观看一个视频"
    try:
@@ -13,8 +19,9 @@ def bili_exp(cookieData, pm):
        pm.addMsg(f'id为：{cookieData["DedeUserID"]} 的账户登录失败')
        return
 
-   pm.addMsg(f'目前账户为：({biliapi.getUserName()})')
-   logging.info(f'登录账户 ({biliapi.getUserName()}) 成功')
+   uname = hiddenUname(biliapi.getUserName())
+   pm.addMsg(f'目前账户为：({uname})')
+   logging.info(f'登录账户 ({uname}) 成功')
 
    rdata = {
        "直播签到": False,
@@ -117,7 +124,7 @@ def main(*args):
     with open('config/config.json','r',encoding='utf-8') as fp:
         configData = json.load(fp)
 
-    pm = PushMessage(title="B站经验脚本消息推送", email=configData["email"])
+    pm = PushMessage(title="B站经验脚本消息推送", SCKEY=configData["SCKEY"], email=configData["email"])
 
     for x in configData["cookieDatas"]:
         bili_exp(x, pm)

@@ -2,6 +2,12 @@
 from models.Biliapi import BiliWebApi
 import time, json
 
+def hiddenUname(uname: str):
+    '''替换用户名中一部分为星号'''
+    _xlen = len(uname) // 2
+    _s = (_xlen + 1) // 2
+    return f'{uname[0:_s]}{"*"*_xlen}{uname[_s+_xlen:]}'
+
 def get_activity_lottery():
     '''获取B站活动抽奖id，生成器'''
     import requests
@@ -26,7 +32,7 @@ def do_activity(cookieData, activity_data):
     except Exception as e:
        print(f'登录验证id为{cookieData["DedeUserID"]}的账户失败，原因为({str(e)})，跳过此账户后续所有操作')
        return
-    print(f'账户({biliapi.getUserName()})开始参与活动抽奖')
+    print(f'账户({hiddenUname(biliapi.getUserName())})开始参与活动抽奖')
     for x in activity_data:
         print(f'开始参与 "{x[0]}" 活动')
         try:
