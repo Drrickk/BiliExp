@@ -11,7 +11,7 @@ def hiddenUname(uname: str):
     return f'{uname[0:_s]}{"*"*_xlen}{uname[_s+_xlen:]}'
 
 def bili_exp(cookieData, pm):
-   "B站直播签到，投币分享获取经验，模拟观看一个视频"
+   "B站直播签到，投币分享获取经验，模拟观看一个视频，一号领取大会员权益"
    try:
        biliapi = BiliWebApi(cookieData)
    except Exception as e: 
@@ -32,13 +32,22 @@ def bili_exp(cookieData, pm):
        "脚本执行前硬币": 0,
        }
 
-   try:
-       if biliapi.vipPrivilegeReceive(1)["code"] == 0:
-           rdata["领取大会员B币"] = True
-       if biliapi.vipPrivilegeReceive(2)["code"] == 0:
-           rdata["领取会员购优惠券"] = True
-   except:
-       pass
+   if time.localtime(time.time() + 28800 + time.timezone).tm_mday == 1:
+       if biliapi.getVipType() == 2:
+           logging.info('今天为1号，开始获取年度大会员权益')
+           try:
+               if biliapi.vipPrivilegeReceive(1)["code"] == 0:
+                   rdata["领取大会员B币"] = True
+                   logging.info('成功领取大会员B币')
+               else:
+                   logging.warning('领取大会员B币失败')
+               if biliapi.vipPrivilegeReceive(2)["code"] == 0:
+                   rdata["领取会员购优惠券"] = True
+                   logging.info('成功领取大会员优惠券')
+               else:
+                   logging.warning('领取大会员B币失败')
+           except:
+               logging.warning('领取大会员权益异常')
 
    try:
        xliveInfo = biliapi.xliveSign()
