@@ -37,7 +37,9 @@ def bili_lottery(data, stime, etime):
                 if dyid in already_repost_dyid: #若动态被转发过就跳过
                     continue
                 try:
-                    biliapi.dynamicRepostReply(dyid, '从未中奖，从未放弃[doge]')
+                    oid = biliapi.getDynamicDetail(dyid)["data"]["card"]["desc"]["rid"]
+                    biliapi.dynamicReplyAdd(oid, '从未中奖，从未放弃[doge]')    #这里评论
+                    biliapi.dynamicRepostReply(dyid, '从未中奖，从未放弃[doge]') #这里转发到自己的动态
                     print(f'转发抽奖(用户名:{uname},动态id:{dyid})成功，等待30s')
                     time.sleep(30)
                 except Exception as e: 

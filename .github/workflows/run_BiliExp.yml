@@ -2,7 +2,7 @@ name: 'run BiliExp'
 
 on:
   schedule:
-    - cron: '1 4 * * *' #中午12:01执行，时间与其他脚本有依赖关系如无必要请勿修改
+    - cron: '0 4 * * *' #中午12:00执行，时间与其他脚本有依赖关系如无必要请勿修改
   watch:
     types: started
   workflow_dispatch:
@@ -15,9 +15,6 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         ref: BiliExp-Actions
-
-    - name: 安装python-requests
-      run: sudo apt-get update && sudo apt-get install -y python-requests
 
     - name: 配置用户信息并检查有效性
       run: echo '${{ secrets.biliconfig }}' > ./config/config.json && python3 check.py
