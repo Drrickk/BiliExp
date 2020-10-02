@@ -32,7 +32,7 @@ def silver2coin(cookieData):
    except Exception as e: 
        logging.warning(f'银瓜子兑换硬币异常，原因为{str(e)}，跳过此账户后续所有操作')
        return
-   print(info)
+   
    if(info["code"] != 0):
        logging.warning(f'兑换失败，信息为({info["msg"]})')
        return
