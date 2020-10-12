@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  run:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
@@ -16,23 +16,13 @@ jobs:
       with: 
         ref: BiliExp-Actions
 
-    - name: 配置用户信息并检查有效性
-      run: echo '${{ secrets.biliconfig }}' > ./config/config.json && python3 check.py
-      
-    - name: 执行B站经验脚本BiliExp.py
-      run: python3 BiliExp.py && cat exp.log
+    - name: 配置用户信息(一定要填写secrets)
+      run: echo '${{ secrets.biliconfig }}' > ./config/config.json
 
-    - name: 执行B站漫画辅助脚本mangaTask.py
-      run: python3 mangaTask.py && cat manga.log
-    
-    - name: 执行B站活动脚本doActivity.py
-      run: python3 doActivity.py
-    
-    - name: 银瓜子兑换硬币silver2coin.py
-      run: python3 silver2coin.py && cat silver2coin.log
-    
-    - name: 执行B站互动抽奖BiliLottery.py(费时)
-      run: python3 BiliLottery.py
-    
-    - name: 执行B站动态清理cleanDynamic.py(费时)
-      run: python3 cleanDynamic.py
+    - name: 安装aiohttp
+      run: |
+          sudo pip3 install setuptools
+          sudo pip3 install aiohttp
+
+    - name: 执行B站经验脚本BiliExp.py
+      run: python3 BiliExp.py
