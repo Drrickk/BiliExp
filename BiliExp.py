@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import asyncio, json, time, logging, sys, re, io
 from models.asyncBiliApi import asyncBiliApi
 #from tasks import * #所有任务模块通过动态加载

@@ -32,7 +32,7 @@ class asyncBiliApi(object):
         self._level = ret["data"]["level_info"]["current_level"]
         self._verified = ret["data"]["mobile_verified"]
         self._coin = ret["data"]["money"]
-        self._exp = ret["data"]["current_exp"]
+        self._exp = ret["data"]["level_info"]["current_exp"]
 
         code = (await self.likeCv(7793107))["code"]
         if code != 0 and code != 65006 and code != -404:

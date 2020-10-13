@@ -52,9 +52,9 @@
     "SCKEY": "",/* SCKEY，微信消息推送用，不用请留空 */
     "users": [{/* users为用户数组，每个账户包含一个cookieDatas和tasks参数 */
         "cookieDatas": {/* 下面三项参数为必填参数(DedeUserID在但账户情况下选填，仅用于区分账户)，获取方式见说明 */
-            "SESSDATA": "e1272654%vfdawi241825%2C8dc06*a1",/* 失效的参数仅作为例子参考不可正常登陆 */
-            "bili_jct": "0a9081cc53856314783d195f5ddbadf3",
-            "DedeUserID": "203953353"
+            "SESSDATA": "账号SESSDATA",
+            "bili_jct": "账号bili_jct",
+            "DedeUserID": "账号uid"
         },/* 下面tasks参数与最上面default参数作用相同，但优先级更高，用于定制每个账号的参数，
              default中未出现的参数在tasks参数中出现则无效 */
         "tasks": {}
