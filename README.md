@@ -44,7 +44,9 @@ BiliExp-Actions
         *  2.2.1 首次fork可能要去actions里面同意使用actions条款，如果"Actions"里面没有"run BiliExp"，点一下右上角的"star"，"run BiliExp"就会出现在"Actions"里面
         *  2.2.2 第一次启动后，脚本会每天12:00自动执行，不需要再次手动执行(第一次手动执行这个步骤不能忽略)。
 ```
-    注:更详细的信息请去config/config.json文件中配置。
+    注: 本配置默认仅提供直播签到，观看和分享视频的功能。
+	开启所有功能需配置config/config.json文件并复制到Secrets中的advconfig中。advconfig设置后不需要设置biliconfig
+	需要本地运行则直接配置config/config.json文件并运行BiliExp.py即可
 ```
 
 ### 2020/10/13更新
