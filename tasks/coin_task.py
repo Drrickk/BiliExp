@@ -6,8 +6,11 @@ async def coin_task(biliapi: asyncBiliApi,
                     task_config: dict
                     ) -> None:
 
-    coin_num = biliapi.mycoin
+    if biliapi.myexp >= task_config["target_exp"]:
+        logging.info(f'{biliapi.name}: 已达到经验目标，跳过投币')
+        return
 
+    coin_num = biliapi.mycoin
     if coin_num == 0:
         logging.info(f'{biliapi.name}: 硬币不足，跳过投币')
         return

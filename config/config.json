@@ -7,7 +7,8 @@
         "xlive_bag_send_task": false, /* 送出即将到期的礼物 */
         "coin_task": { /* 投币任务，将enable设置为false或把coin_task设置为false就可关闭 */
             "enable": false,
-            "num": 5/* 投币数量，如果当天已经投币超过这个数量则不会继续投币，取值范围为0-5 */
+            "num": 5, /* 投币数量，如果当天已经投币超过这个数量则不会继续投币，取值范围为0-5 */
+			"target_exp": 28800 /* 达到目标经验值停止投币，如果当天投币后达到经验值第二天及以后就不会投币 */
         },
         "watch_task": true,/* 模拟观看一个随机视频 */
         "share_task": true,/* 模拟分享一个随机视频 */
