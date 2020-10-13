@@ -32,6 +32,7 @@ class asyncBiliApi(object):
         self._level = ret["data"]["level_info"]["current_level"]
         self._verified = ret["data"]["mobile_verified"]
         self._coin = ret["data"]["money"]
+        self._exp = ret["data"]["current_exp"]
 
         code = (await self.likeCv(7793107))["code"]
         if code != 0 and code != 65006 and code != -404:
@@ -39,6 +40,11 @@ class asyncBiliApi(object):
             warnings.warn(f'{self._name}:账号异常，请检查bili_jct参数是否有效或本账号是否被封禁')
 
         return True
+
+    @property
+    def myexp(self) -> int:
+        '''获取登录的账户的经验'''
+        return self._exp
 
     @property
     def mycoin(self) -> int:
