@@ -22,32 +22,40 @@ BiliExp-Actions
 </br>
 
 ### 使用方式
-* 1.准备
-    *  1.1一个或多个B站账号，以及登录后获取的SESSDATA，bili_jct，DedeUserID (获取方式见最下方示意图)
-    *  1.2fork本项目
-* 2.部署
-    *  2.1在fork后的github仓库的 “Settings” --》“Secrets” 中添加"Secrets"，name和value分别为：
+* 1. 准备
+    *  1.1 一个或多个B站账号，以及登录后获取的SESSDATA，bili_jct，DedeUserID (获取方式见最下方示意图)
+    *  1.2 fork本项目
+* 2. 简单部署(与3.复杂部署二选一)
+    *  2.1 在fork后的github仓库的 “Settings” --》“Secrets” 中添加"Secrets"，name和value分别为：
         *  2.1.1 name为"biliconfig"           value为B站账号登录信息，格式如下
-		```
-		SESSDATA
-		bili_jct
-		uid
-		```
-		例如下面这样
-		```
-		e1272654%vfdawi241825%2C8dc06*a1
-		0a9081cc53856314783d195f5ddbadf3
-		203953353
-		```
-		![image](https://user-images.githubusercontent.com/67217225/95849036-77654580-0d81-11eb-8125-9adcd23ec25a.png)
-    *  2.2添加完上面的"Secrets"后，进入"Actions" --》"run BiliExp"，点击右边的"Run workflow"即可第一次启动
-        *  2.2.1 首次fork可能要去actions里面同意使用actions条款，如果"Actions"里面没有"run BiliExp"，点一下右上角的"star"，"run BiliExp"就会出现在"Actions"里面
+        ```
+        SESSDATA
+        bili_jct
+        uid
+        ```
+        例如下面这样
+        ```
+        e1272654%vfdawi241825%2C8dc06*a1
+        0a9081cc53856314783d195f5ddbadf3
+        203953353
+        ```
+        ![image](https://user-images.githubusercontent.com/67217225/95849036-77654580-0d81-11eb-8125-9adcd23ec25a.png)
+    *  2.2 添加完上面的"Secrets"后，进入"Actions" --》"run BiliExp"，点击右边的"Run workflow"即可第一次启动
+        *  2.2.1 首次fork可能要去actions(正上方的actions不是Settings里面的actions)里面同意使用actions条款，如果"Actions"里面没有"run BiliExp"，点一下右上角的"star"，"run BiliExp"就会出现在"Actions"里面
         *  2.2.2 第一次启动后，脚本会每天12:00自动执行，不需要再次手动执行(第一次手动执行这个步骤不能忽略)。
-```
-    注: 本配置默认仅提供直播签到，观看和分享视频的功能。
-	开启所有功能需配置config/config.json文件并复制到Secrets中的advconfig中。advconfig设置后不需要设置biliconfig
-	需要本地运行则直接配置config/config.json文件并运行BiliExp.py即可
-```
+        ```
+        注: 本配置默认仅提供直播签到，银瓜子兑换硬币，观看和分享视频的功能，更多功能看复杂部署
+        ```
+        
+* 3. 复杂部署与本地部署(与2.简单部署二选一)
+    *  3.1 进入config文件夹，按照说明配置config.json文件
+    *  3.2 在fork后的github仓库的 “Settings” --》“Secrets” 中添加"Secrets"，name和value分别为：
+        *  3.2.1 name为"advconfig"           value为3.1步骤配置好的config.json文件(直接把整个文件复制到这里)
+    *  3.3 同上面2.2配置
+    ```
+        advconfig设置后不需要设置biliconfig
+        需要本地运行则直接配置config/config.json文件并运行BiliExp.py即可(必须安装依赖aiohttp，可以执行pip3 install aiohttp)
+    ```
 
 ### 2020/10/13更新
 
