@@ -12,7 +12,7 @@ async def silver2coin_task(biliapi: asyncBiliApi) -> None:
        return
 
    if ret["data"]["silver_2_coin_left"] == 0:
-       logging.warning('{biliapi.name}: 今日银瓜子兑换硬币额度已经用完')
+       logging.warning(f'{biliapi.name}: 今日银瓜子兑换硬币额度已经用完')
        return
 
    try:
