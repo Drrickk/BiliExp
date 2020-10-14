@@ -17,8 +17,10 @@ def push_message(SCKEY=None,
         data_string = urllib.parse.urlencode({"text": "B站经验脚本消息推送","desp": log})
         urllib.request.urlopen(f'https://sc.ftqq.com/{SCKEY}.send', data=data_string.encode())
     if email:
-        data_string = urllib.parse.urlencode({"email":email, "name": "B站经验脚本消息推送","certno": log.replace("\n","<br>")})
-        urllib.request.urlopen(f'http://liuxingw.com/api/mail/api.php?{data_string}')
+        data_string = urllib.parse.urlencode({"address":email, "name": "B站经验脚本消息推送", "certno": log.replace("\n","<br>")})
+        #这辣鸡接口居然还要User-Agent才能访问....
+        req = urllib.request.Request(url=f'http://liuxingw.com/api/mail/api.php?{data_string}', headers={"User-Agent":"Mozilla/5.0"})
+        urllib.request.urlopen(req)
 
 async def run_user_tasks(user,           #用户配置
                         default          #默认配置
@@ -63,22 +65,24 @@ def initlog(log_file_name):
     '''初始化日志参数'''
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
-    file_handler = logging.FileHandler(log_file_name)
-    console_handler = logging.StreamHandler(stream=sys.stdout)
-    strio_handler = logging.StreamHandler(stream=log_stream)
+    console_handler = logging.StreamHandler(stream=sys.stdout) #输出到控制台
+    strio_handler = logging.StreamHandler(stream=log_stream) #输出到log_stream用于消息推送
     formatter1 = logging.Formatter("[%(levelname)s]; %(message)s")
     formatter2 = logging.Formatter("%(message)s")
-    file_handler.setFormatter(formatter1)
     console_handler.setFormatter(formatter1)
     strio_handler.setFormatter(formatter2)
-    logger.addHandler(file_handler)
     logger.addHandler(console_handler)
     logger.addHandler(strio_handler)
+
+    #云函数上 下面的代码会抛出异常，因为云函数是只读环境
+    file_handler = logging.FileHandler(log_file_name)#输出到日志文件
+    file_handler.setFormatter(formatter1)
+    logger.addHandler(file_handler)
 
 def main(*args):
     try:
         initlog("BiliExp.log")
-    except:
+    except Exception as e: 
         print(f'日志配置异常，原因为{str(e)}')
 
     try:
