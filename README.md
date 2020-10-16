@@ -1,6 +1,6 @@
 BiliExp-Actions
 ====  
-##### 本分支为主分支的云函数功能的一部分，去除了对云函数的依赖，只需要github Actions就能使用
+##### 本分支为主分支的云函数功能的一部分，去除了对云函数的依赖，只需要github Actions就能使用，最新功能在本分支更新，因此会频繁变动，如无必要可以不及时更新代码(除非出现严重bug)
 
 [![](https://img.shields.io/badge/author-%E6%98%9F%E8%BE%B0-red "作者")](https://github.com/happy888888/ )
 ![](https://img.shields.io/badge/dynamic/json?label=GitHub%20Followers&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dgithub%26queryKey%3Dhappy888888&labelColor=282c34&color=181717&logo=github&longCache=true "关注数量")
@@ -10,8 +10,8 @@ BiliExp-Actions
 ### 主要功能
 **B站自动操作脚本**
 * [x] 自动获取经验(投币、点赞、分享视频) 
-* [x] 自动转发互动抽奖并评论
-* [x] 参与官方转盘抽奖活动(activity)
+* [x] 自动转发互动抽奖并评论(自己关注的up主,目前没有自动关注功能,需要可以提issue)
+* [x] 参与官方转盘抽奖活动(activity，目前没有自动搜集活动的功能,需要在config/activity.json里面手动指定)
 * [x] 直播辅助(直播签到，~~直播挂机~~，直播自动送出快过期礼物) 
 * [x] 自动兑换银瓜子为硬币 
 * [x] 自动领取大会员每月权益(B币劵，优惠券)(每月1号) 
@@ -19,7 +19,12 @@ BiliExp-Actions
 * [x] 漫画辅助脚本(漫画APP签到，自动花费即将过期漫读劵，自动积分兑换漫画福利券，自动领取大会员每月福利劵，自动参加每月"站友日"活动) 
 * [x] 定时清理无效动态(转发的过期抽奖，失效动态) 
 * [ ] ~~直播开启宝箱领取银瓜子(本活动已结束，不知道B站以后会不会再启动)~~ 
+* [x] 风纪委员投票(处于功能测试状态，目前每次执行只投一次票)
 </br>
+
+```
+如有其他功能需求请发issue，提供功能说明和功能所在的B站页面(app功能可提供界面截图和进入方式)以及分支名称(BiliExp-Actions)
+```
 
 ### 使用方式
 * 1. 准备
@@ -44,22 +49,32 @@ BiliExp-Actions
         *  2.2.1 首次fork可能要去actions(正上方的actions不是Settings里面的actions)里面同意使用actions条款，如果"Actions"里面没有"run BiliExp"，点一下右上角的"star"，"run BiliExp"就会出现在"Actions"里面
         *  2.2.2 第一次启动后，脚本会每天12:00自动执行，不需要再次手动执行(第一次手动执行这个步骤不能忽略)。
         ```
-        注: 本部署方式仅提供默认配置，功能的详细配置包括但不限于以下所列，请使用复杂部署方式
-		1. 自定义功能开启与关闭
-		2. 投币功能自定义投币数量
-		3. 抽奖动态转发自定义评论内容
-		4. 多账户的支持
+        注: 本部署方式仅提供默认配置，功能的详细配置包括但不限于以下所列，请使用下面的复杂部署方式
+		1. 自定义功能开启与关闭(简单部署不开启所有功能)
+		2. 投币功能自定义投币数量(简单部署默认为5，达到6级后第二天停止)
+		3. 抽奖动态转发自定义评论内容，简单部署默认评论为(从未中奖，从未放弃[doge])
+		4. 漫画辅助功能的启用与详细配置，简单部署不启用此功能
+		5. 风纪委员投票功能的启用与详细配置，简单部署不启用此功能
+		6. 多账户的支持(支持50个以上的B站账号)，简单部署只能单账号
         ```
         
 * 3. 复杂部署与本地部署(与2.简单部署二选一)
     *  3.1 进入config文件夹，按照说明配置config.json文件
     *  3.2 在fork后的github仓库的 “Settings” --》“Secrets” 中添加"Secrets"，name和value分别为：
-        *  3.2.1 name为"advconfig"           value为3.1步骤配置好的config.json文件(直接把整个文件复制到这里)
+        *  3.2.1 name为"advconfig"(注意不是上面的biliconfig)     value为3.1步骤配置好的config.json文件(直接把整个文件复制到这里)
     *  3.3 同上面2.2配置
     ```
         advconfig设置后不需要设置biliconfig
         需要本地运行则直接配置config/config.json文件并运行BiliExp.py即可(必须安装依赖aiohttp，可以执行pip3 install aiohttp)
     ```
+
+</br>
+
+### 2020/10/16更新
+
+* 1.增加风纪委员投票的功能
+
+</br></br>
 
 ### 2020/10/13更新
 

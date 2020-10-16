@@ -3,7 +3,7 @@ import asyncio, json, time, logging, sys, re, io
 from models.asyncBiliApi import asyncBiliApi
 #from tasks import * #所有任务模块通过动态加载
 
-log_stream = io.StringIO()
+log_stream = io.StringIO() #用于记录日志
 
 def push_message(SCKEY=None,
                  email=None
@@ -48,7 +48,7 @@ async def run_user_tasks(user,           #用户配置
                     task_module = __import__(f'tasks.{task}')
                     task_function = getattr(getattr(task_module, task), task)
                     tasks.append(task_function(biliapi))
-            elif isinstance(task, dict):
+            elif isinstance(default[task], dict):
                 if task in user["tasks"]:
                     if user["tasks"][task]["enable"]:
                         task_module = __import__(f'tasks.{task}')
