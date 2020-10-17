@@ -99,6 +99,8 @@
         */
         }
     },
+    "log_file": "BiliExp.log",/* 日志文件，不输出请留空 */
+    "log_console": true,/* 是否把日志输出到控制台 */
     "email": "",/* 邮箱，消息推送用，不用请留空 */
     "SCKEY": "",/* SCKEY，微信消息推送用，不用请留空 */
     "users": [{/* users为用户数组，每个账户包含一个cookieDatas和tasks参数 */
