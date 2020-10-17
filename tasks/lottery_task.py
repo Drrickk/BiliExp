@@ -21,6 +21,22 @@ async def lottery_task(biliapi: asyncBiliApi,
                 continue
             elif(timestamp < start_time):
                 break
+
+            if 'card' in x:
+                card = json.loads(x["card"])
+                flag = False
+                for keyword in task_config["keywords"]:
+                    if keyword in card["dynamic"]:
+                        uname = x["desc"]["user_profile"]["info"]["uname"]  #动态的主人的用户名
+                        dyid = x["desc"]["dynamic_id"]
+                        await biliapi.dynamicReplyAdd(oid, task_config["reply"])
+                        await biliapi.dynamicRepostReply(dyid, task_config["repost"])
+                        logging.info(f'{biliapi.name}: 转发关键字动态(用户名:{uname},动态id:{dyid})成功')
+                        flag = True
+                        break
+                if flag:
+                    continue
+
             if 'extension' in x and 'lott' in x["extension"]: #若抽奖标签存在
                 uname = x["desc"]["user_profile"]["info"]["uname"]  #动态的主人的用户名
                 dyid = x["desc"]["dynamic_id"]
