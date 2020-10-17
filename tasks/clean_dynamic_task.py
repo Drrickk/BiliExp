@@ -1,5 +1,5 @@
 from models.asyncBiliApi import asyncBiliApi
-import logging
+import logging, json
 
 async def clean_dynamic_task(biliapi: asyncBiliApi,
                        task_config: dict

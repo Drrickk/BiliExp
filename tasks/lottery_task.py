@@ -1,6 +1,6 @@
 from models.asyncBiliApi import asyncBiliApi
 from tasks.import_once import now_time
-import logging
+import logging, json
 
 end_time = now_time - (now_time + 28800) % 86400 + 43200 #当天中午12点
 start_time = end_time - 86400
