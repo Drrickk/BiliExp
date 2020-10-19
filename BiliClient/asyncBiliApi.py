@@ -2,7 +2,7 @@
 from aiohttp import ClientSession
 
 class asyncBiliApi(object):
-    '''B站异步api'''
+    '''B站异步接口类'''
     def __init__(self):
 
         headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/63.0.3239.108","Referer": "https://www.bilibili.com/",'Connection': 'keep-alive'}
@@ -545,7 +545,7 @@ class asyncBiliApi(object):
         for x in cards:
             yield x
         hasnext = True
-        offset = cards[len(cards) - 1]["desc"]["dynamic_id"]
+        offset = cards[-1]["desc"]["dynamic_id"]
         while hasnext:
             async with self._session.get(f'https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/dynamic_history?uid={self._uid}&offset_dynamic_id={offset}&type={type_list}', verify_ssl=False) as r:
                 ret = await r.json()
@@ -554,7 +554,7 @@ class asyncBiliApi(object):
             cards = ret["data"]["cards"]
             for x in cards:
                 yield x
-            offset = cards[len(cards) - 1]["desc"]["dynamic_id"]
+            offset = cards[-1]["desc"]["dynamic_id"]
 
     async def getDynamicDetail(self, 
                          dynamic_id: int
